@@ -1,0 +1,111 @@
+<!-- search bar -->
+<div class="container search-bar">
+    <div class="search-bar-outer">
+        <div class="search-bar-inner">
+            <form action="/search">
+                <h4 class="mb-2">尋找餐廳：</h4>
+                <div class="input-group">
+                    <input type="text" name="keyword" class="form-control" placeholder="輸入餐廳、分類"
+                        aria-label="Restaurant Name..." value="{{keyword}}" aria-describedby="search-button" />
+                    <input type="hidden" name="sort" value="{{sort}}" /><input type="hidden" name="sortCN"
+                        value="{{sortCN}}" />
+                    <div class="input-group-append">
+                        <button class="btn btn-major" type="submit" id="search-button"><i
+                                class="fas fa-search"></i></button>
+                    </div>
+                </div>
+                <input type="hidden" name="sort" value="{{sort}}" />
+            </form>
+        </div>
+    </div>
+</div>
+<div id="tip-wrap" data-submit="{{submit}}">
+    <!-- Display Alert -->
+</div>
+<!-- restaurant list -->
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-10 col-12 mx-auto">
+            <div class="dropdown row">
+                <button class="btn btn-secondary dropdown-toggle mb-2 ml-auto mr-4" type="button"
+                    id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    {{sortCN}}
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="/search?sort=early&sortCN=舊→新&keyword={{keyword}}">舊→新</a>
+                    <a class="dropdown-item" href="/search?sort=latest&sortCN=新→舊&keyword={{keyword}}">新→舊</a>
+                    <a class="dropdown-item" href="/search?sort=nameAtoZ&sortCN=A→Z&keyword={{keyword}}">A→Z</a>
+                    <a class="dropdown-item" href="/search?sort=nameZtoA&sortCN=Z→A&keyword={{keyword}}">Z→A</a>
+                    <a class="dropdown-item" href="/search?sort=category&sortCN=類別&keyword={{keyword}}">類別</a>
+                </div>
+            </div>
+            {{#if restaurants}}
+            <div id="restaurants-wrapper" class="row justify-content-center">
+                {{#each restaurants}}
+                <!-- render restaurant list -->
+                <a href="/restaurants/{{this._id}}" class="text-secondary">
+                    <div class="card mb-3 mx-2" style="width:18rem;">
+                        <img class="card-img-top" style="height:11.25rem;" src="{{this.image}}" alt="{{this.name}}" />
+                        <div class="card-body p-3">
+                            <h6 class="card-title mb-1">{{this.name}}</h6>
+                            <div class="restaurant-category mb-1">
+                                <i class="fas fa-utensils pr-2"></i>
+                                {{this.category}}
+                            </div>
+                            <span class="badge badge-pill badge-danger font-weight-normal">
+                                {{this.rating}}
+                                <i class="fas fa-star fa-xs"></i>
+                            </span>
+                        </div>
+                        <div class="card-footer text-right">
+                            <nav class="nav justify-content-end">
+                                <a class="nav-link px-1" href="/restaurants/{{this._id}}/edit"
+                                    data-id="{{this._id}}">Edit</a>
+                                <a class="nav-link px-3" href="/restaurants/{{this._id}}"
+                                    data-id="{{this._id}}">Detail</a>
+                                <button type="button" class="btn btn-danger" data-toggle="modal"
+                                    data-target="#delete-modal" data-id="{{this._id}}"
+                                    data-name="{{this.name}}">Delete</button>
+                            </nav>
+                        </div>
+                    </div>
+                </a>
+                {{/each}}
+            </div>
+            {{else}}
+            {{#if searching}}
+            <div class="container text-center mt-5">
+                <h2><i class="far fa-frown"></i> Oops! 找不到餐廳！</h2>
+                <h4>請嘗試其他關鍵字</h4>
+            </div>
+            {{else}}
+            <div class="container text-center mt-5">
+                <h2><i class="far fa-frown"></i> Oops! 還沒有新增任何餐廳喔！</h2>
+                <h4>趕快來新增吧！</h4>
+            </div>
+            {{/if}}
+            {{/if}}
+        </div>
+    </div>
+</div>
+<script>
+    const tipWrap = document.querySelector('#tip-wrap') switch
+    (tipWrap.dataset.submit) {
+        case 'new': displaySuccessTip('成功新增餐廳資訊！')
+            break case 'edit': displaySuccessTip('已修改餐廳資訊！') break case 'delete':
+            displayDeleteTip() break
+    } function displaySuccessTip(content) {
+        const
+            alertElement = document.createElement('div') alertElement.innerHTML = ` <div
+  class="tip-item"> <div class="alert alert-success fade show text-center"
+  role="alert"> <h5 class="my-0">${content}</h5> </div> </div>`
+        tipWrap.innerHTML = '' tipWrap.append(alertElement)
+    } function
+        displayDeleteTip() {
+        const alertElement = document.createElement('div')
+        alertElement.innerHTML = ` <div class="tip-item"> <div class="alert
+  alert-danger fade show text-center" role="alert"> <h5
+  class="my-0">已刪除餐廳資訊</h5> </div> </div>` tipWrap.innerHTML = ''
+        tipWrap.append(alertElement)
+    }
+</script>

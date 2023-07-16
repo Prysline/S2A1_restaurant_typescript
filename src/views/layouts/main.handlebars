@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurant List</title>
+    <link rel="stylesheet" href="/stylesheets/bootstrap.css">
+    <link rel="shortcut icon"
+        href="https://assets-lighthouse.s3.amazonaws.com/uploads/image/file/6227/restaurant-list-logo.png"
+        type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.1/css/all.min.css">
+    <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+
+<body>
+    <header>
+        <!-- navigation -->
+        <nav class="navbar navbar-light bg-light">
+            <div class="container justify-content-between">
+                <a class="navbar-brand" href="/">
+                    <img src="https://assets-lighthouse.s3.amazonaws.com/uploads/image/file/6227/restaurant-list-logo.png"
+                        width="30" height="30" class="d-inline-block align-top" {{#if isAuthenticated}}
+                        alt="{{user.name}}的餐廳清單"> {{user.name}}的餐廳清單
+                    {{else}}
+                    alt="我的餐廳清單">
+                    我的餐廳清單{{/if}}
+                </a>
+                {{#if isAuthenticated}}
+                <div>
+                    <a class="btn btn-outline-info my-2 my-sm-0" href="/new">+ 新增餐廳</a>
+                    <a class="btn btn-outline-info my-2 my-sm-0 ml-sm-1" href="/users/logout">Logout</a>
+                </div>
+                {{else}}<a class="btn btn-outline-info my-2 my-sm-0" href="/users/login">Login</a>
+                {{/if}}
+            </div>
+        </nav>
+
+        <div class="banner"></div>
+    </header>
+    {{{ body }}}
+    {{!-- close tip modal --}}
+    <div class="modal fade" id="delete-modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Delete!</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>您確定要刪除 <span id="delete-restaurant"
+                            style="font-weight: 600; font-size: 1.1em; color: blue;"></span> 嗎？</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <form action="" method="POST" id="delete-button-form" style="display: inline;">
+                        <button type="submit" class="btn btn-danger">DELETE</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- include javascript files here -->
+    <script src="/javascripts/jquery-3.6.0.js"></script>
+    <script src="/javascripts/popper.js"></script>
+    <script src="/javascripts/bootstrap.js"></script>
+    <script src="/javascripts/forDeleteButton.js"></script>
+</body>
+
+</html>
