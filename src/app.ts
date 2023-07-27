@@ -1,6 +1,7 @@
 import express, { Express, Request, Response } from "express";
 import dotenv from "dotenv";
 import * as handlebars from "express-handlebars";
+import routes from './routes';
 
 dotenv.config({ path: "env/.env." + process.env.NODE_ENV });
 
@@ -18,6 +19,8 @@ app.use(express.static("public"));
 app.get("/", (req: Request, res: Response) => {
   res.render("index", { user: { name: "test" } });
 });
+
+app.use(routes);
 
 app.listen(port, () => {
   console.log(`[server]: Server listening on http://${host}:${port}`);
