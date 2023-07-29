@@ -1,6 +1,6 @@
-import express, { Router } from "express";
+import { Router } from "express";
 import home from "./modules/home";
-const router = express.Router();
+const router = Router();
 
 router.use("/", home);
 
