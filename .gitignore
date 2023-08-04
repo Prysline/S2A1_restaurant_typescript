@@ -1,5 +1,23 @@
-# Created by https://www.toptal.com/developers/gitignore/api/node,yarn
-# Edit at https://www.toptal.com/developers/gitignore?templates=node,yarn
+# Created by https://www.toptal.com/developers/gitignore/api/node,yarn,dotenv,git,visualstudiocode
+# Edit at https://www.toptal.com/developers/gitignore?templates=node,yarn,dotenv,git,visualstudiocode
+
+### dotenv ###
+.env
+
+### Git ###
+# Created by git for backups. To disable backups in Git:
+# $ git config --global mergetool.keepBackup false
+*.orig
+
+# Created by git when using merge tools for conflicts
+*.BACKUP.*
+*.BASE.*
+*.LOCAL.*
+*.REMOTE.*
+*_BACKUP_*.txt
+*_BASE_*.txt
+*_LOCAL_*.txt
+*_REMOTE_*.txt
 
 ### Node ###
 # Logs
@@ -77,7 +95,6 @@ web_modules/
 .yarn-integrity
 
 # dotenv environment variable files
-.env
 .env.dev
 .env.test
 .env.prd
@@ -141,6 +158,25 @@ dist
 # SvelteKit build / generate output
 .svelte-kit
 
+### VisualStudioCode ###
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+!.vscode/*.code-snippets
+
+# Local History for Visual Studio Code
+.history/
+
+# Built Visual Studio Code Extensions
+*.vsix
+
+### VisualStudioCode Patch ###
+# Ignore all local history of files
+.history
+.ionide
+
 ### yarn ###
 # https://yarnpkg.com/getting-started/qa#which-files-should-be-gitignored
 
@@ -158,4 +194,4 @@ dist
 # and uncomment the following lines
 # .pnp.*
 
-# End of https://www.toptal.com/developers/gitignore/api/node,yarn
+# End of https://www.toptal.com/developers/gitignore/api/node,yarn,dotenv,git,visualstudiocode
